@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dugo777 Loteria</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <h1>Escolha 15 Números</h1>
+  <form method="POST" action="/pagamento" onsubmit="return validarSelecao()">
+    <div class="numeros">
+      {% for i in range(1, 26) %}
+        <label>
+          <input type="checkbox" name="numeros" value="{{ i }}" onclick="limitarSelecao(this)">
+          {{ i }}
+        </label>
+      {% endfor %}
+    </div>
+    <button type="submit">Gerar Cartela</button>
+  </form>
+
+  <script>
+    function limitarSelecao(checkbox) {
+      let selecionados = document.querySelectorAll('input[type="checkbox"]:checked');
+      if (selecionados.length > 15) {
+        checkbox.checked = false;
+        alert("Você só pode selecionar 15 números.");
+      }
+    }
+    function validarSelecao() {
+      let selecionados = document.querySelectorAll('input[type="checkbox"]:checked');
+      if (selecionados.length !== 15) {
+        alert("Selecione exatamente 15 números.");
+        return false;
+      }
+      return true;
+    }
+  </script>
+</body>
+</html>
